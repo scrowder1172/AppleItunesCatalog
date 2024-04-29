@@ -9,9 +9,14 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State private var artistName: String = ""
+    @State private var lookupTerm: String = ""
     
     @State private var isShowingSearchResults: Bool = false
+    
+    @State private var resultsData: [Results] = []
+    
+    let searchType: [String] = ["Album", "Artist", "Song"]
+    @State private var selectedSearchType: String = ""
     
     var body: some View {
         ZStack{
@@ -31,18 +36,28 @@ struct MainView: View {
                 Spacer()
                 
                 VStack(alignment: .leading) {
-                    Text("Artist Lookup")
+                    Text("Lookup Term")
                         .font(.caption)
                     HStack{
-                        TextField("Artist", text: $artistName)
+                        TextField("Term", text: $lookupTerm)
                             .textFieldStyle(.roundedBorder)
+                            .textContentType(.name)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.words)
+                        Picker("", selection: $selectedSearchType) {
+                            ForEach(searchType, id: \.self) { type in
+                                Text(type)
+                            }
+                        }
+                        .background(.black)
                         Button {
                             isShowingSearchResults = true
                         } label: {
                             Image(systemName: "chevron.right.square")
                                 .imageScale(.large)
-                                .background(.black)
+                                .background(lookupTerm.isEmpty ? .clear : .black)
                         }
+                        .disabled(lookupTerm.isEmpty)
                     }
                 }
                 
@@ -50,7 +65,7 @@ struct MainView: View {
             }
             .padding()
             .sheet(isPresented: $isShowingSearchResults) {
-                SearchResultsView()
+                SearchResultsView(lookupTerm: lookupTerm, searchType: selectedSearchType)
                     .interactiveDismissDisabled()
             }
         }
