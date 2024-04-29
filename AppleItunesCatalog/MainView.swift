@@ -15,8 +15,8 @@ struct MainView: View {
     
     @State private var resultsData: [Results] = []
     
-    let searchType: [String] = ["Album", "Artist", "Song"]
-    @State private var selectedSearchType: String = ""
+    let searchType: [String] = ["Artist", "Song", "Album"]
+    @State private var selectedSearchType: String = "Artist"
     
     var body: some View {
         ZStack{
