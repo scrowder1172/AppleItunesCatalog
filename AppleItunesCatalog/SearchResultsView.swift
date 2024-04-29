@@ -11,77 +11,98 @@ struct SearchResultsView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State private var resultsData: [Results] = []
-    
     let lookupTerm: String
     let searchType: String
+    
+    @State private var resultsData: [Results] = []
+    @State private var filteredData: [Results] = []
+    @State private var isSearchRunning: Bool = false
     
     var body: some View {
         NavigationStack{
             Group {
-                List {
-                    ForEach(resultsData){ result in
-                        if (searchType == "Artist" && result.artistName.localizedStandardContains(lookupTerm)) ||
-                            (searchType == "Album" && result.collectionName.localizedStandardContains(lookupTerm)) ||
-                            (searchType == "Song" && result.trackName.localizedStandardContains(lookupTerm)){
-                            HStack{
-                                AsyncImage(url: URL(string: result.artworkUrl60), scale: 1) { phase in
-                                    if let image = phase.image {
-                                        image
+                if filteredData.isEmpty {
+                    ContentUnavailableView {
+                        Label("Data Not Found", systemImage: "cloud.bolt.rain.fill")
+                    } description: {
+                        Text("Please try another search")
+                    } actions: {
+                        Button("Search Again") {
+                            dismiss()
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                } else {
+                    List(filteredData) { result in
+                        HStack{
+                            AsyncImage(url: URL(string: result.artworkUrl60), scale: 1) { phase in
+                                if let image = phase.image {
+                                    image
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                        .scaledToFill()
+                                } else if phase.error != nil {
+                                    VStack {
+                                        Image(systemName: "antenna.radiowaves.left.and.right.slash")
                                             .resizable()
                                             .frame(width: 50, height: 50)
-                                            .scaledToFill()
-                                    } else if phase.error != nil {
-                                        VStack {
-                                            Image(systemName: "iphone.slash.circle")
-                                                .resizable()
-                                                .frame(width: 50, height: 50)
-                                            Text("Album art not available")
-                                        }
-                                        .foregroundStyle(.red)
-                                    } else {
-                                        ProgressView()
+                                        Text("Album art not available")
+                                    }
+                                    .foregroundStyle(.red)
+                                } else {
+                                    ProgressView()
+                                }
+                            }
+                            VStack(alignment: .leading) {
+                                HStack{
+                                    Text("\(result.trackName)")
+                                        .font(.title3)
+                                    if result.trackExplicitness == "explicit" {
+                                        Text("EXPLICIT")
+                                            .font(.system(size: 6))
+                                            .padding(2)
+                                            .foregroundStyle(.red)
+                                            .border(.red)
                                     }
                                 }
-                                VStack(alignment: .leading) {
-                                    HStack{
-                                        Text("Song: \(result.trackName)")
-                                            .font(.title3)
-                                        if result.trackExplicitness == "explicit" {
-                                            Text("EXPLICIT")
-                                                .font(.system(size: 6))
-                                                .padding(2)
-                                                .foregroundStyle(.red)
-                                                .border(.red)
-                                        }
-                                    }
-                                    Text("Artist: \(result.artistName)")
+                                Text("Artist: \(result.artistName)")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                HStack{
+                                    Text("Album: \(result.collectionName)")
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
-                                    HStack{
-                                        Text("Album: \(result.collectionName)")
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                        if result.collectionExplicitness == "explicit" {
-                                            Text("EXPLICIT")
-                                                .font(.system(size: 6))
-                                                .padding(2)
-                                                .foregroundStyle(.red)
-                                                .border(.red)
-                                        }
+                                    if result.collectionExplicitness == "explicit" {
+                                        Text("EXPLICIT")
+                                            .font(.system(size: 6))
+                                            .padding(2)
+                                            .foregroundStyle(.red)
+                                            .border(.red)
                                     }
                                 }
                             }
                         }
-                        
                     }
                 }
             }
             .onAppear {
+                isSearchRunning = true
                 Task {
                     await getSongs()
+                    isSearchRunning = false
                 }
             }
+            .overlay {
+                if isSearchRunning {
+                    ProgressView("Searching...")
+                        .padding(40)
+                        .background(.blue)
+                        .foregroundStyle(.white)
+                        .tint(.white)
+                        .clipShape(.rect(cornerRadius: 25))
+                }
+            }
+            .disabled(isSearchRunning)
             .navigationTitle("Search Results")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -115,6 +136,19 @@ struct SearchResultsView: View {
             
             let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
             resultsData = decodedResponse.results
+            switch searchType {
+            case "Artist":
+                print("artist")
+                filteredData = resultsData.filter { $0.artistName.localizedStandardContains(lookupTerm)}.sorted{ $0.artistName < $1.artistName}
+            case "Album":
+                print("Album")
+                filteredData = resultsData.filter { $0.collectionName.localizedStandardContains(lookupTerm)}.sorted{ $0.collectionName < $1.collectionName}
+            case "Song":
+                print("Song")
+                filteredData = resultsData.filter { $0.trackName.localizedStandardContains(lookupTerm)}.sorted{ $0.trackName < $1.trackName}
+            default:
+                print("All")
+            }
         } catch {
             print(error.localizedDescription)
         }
@@ -122,5 +156,5 @@ struct SearchResultsView: View {
 }
 
 #Preview {
-    SearchResultsView(lookupTerm: "Pantera", searchType: "Artist")
+    SearchResultsView(lookupTerm: "Katy Perry", searchType: "Artist")
 }
