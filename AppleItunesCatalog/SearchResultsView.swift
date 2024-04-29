@@ -5,6 +5,7 @@
 //  Created by SCOTT CROWDER on 4/29/24.
 //
 
+import os.log
 import SwiftUI
 
 struct SearchResultsView: View {
@@ -117,11 +118,14 @@ struct SearchResultsView: View {
     
     func getSongs() async {
         
+        Logger.general.info("Gather Data | Start | Search term(s): \(lookupTerm)")
+        
         let baseURL: String = "https://itunes.apple.com/search?entity=song&term="
         let artistLookup: String = lookupTerm.replacing(" ", with: "+")
         let lookupURL: String = baseURL + artistLookup
         
         guard let url = URL(string: lookupURL) else {
+            Logger.networking.error("Gather Data | Error | URL invalid: \(lookupURL)")
             return
         }
         
@@ -129,28 +133,32 @@ struct SearchResultsView: View {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let response = response as? HTTPURLResponse else {
+                Logger.networking.error("Gather Data | Error | HTTP response invalid. Check that correct protocol is referenced.")
                 return
             }
             
-            print("Response code: \(response.statusCode)")
+            guard response.statusCode == 200 else {
+                Logger.networking.error("Gather Data | Error | Response status code invalid (\(response.statusCode)")
+                return
+            }
+            
+            Logger.networking.info("Gather Data | Response Code | \(response.statusCode)")
             
             let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
             resultsData = decodedResponse.results
             switch searchType {
             case "Artist":
-                print("artist")
                 filteredData = resultsData.filter { $0.artistName.localizedStandardContains(lookupTerm)}.sorted{ $0.artistName < $1.artistName}
             case "Album":
-                print("Album")
                 filteredData = resultsData.filter { $0.collectionName.localizedStandardContains(lookupTerm)}.sorted{ $0.collectionName < $1.collectionName}
             case "Song":
-                print("Song")
                 filteredData = resultsData.filter { $0.trackName.localizedStandardContains(lookupTerm)}.sorted{ $0.trackName < $1.trackName}
             default:
                 print("All")
             }
+            Logger.general.info("Gather Data | Complete")
         } catch {
-            print(error.localizedDescription)
+            Logger.networking.error("Gather Data | Error | An error occurred gathering the data: \(error.localizedDescription)")
         }
     }
 }
