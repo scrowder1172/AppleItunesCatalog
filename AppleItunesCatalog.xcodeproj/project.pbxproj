@@ -8,19 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		52BAD11D2BE00EF300D2C8A4 /* AppleItunesCatalogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD11C2BE00EF300D2C8A4 /* AppleItunesCatalogApp.swift */; };
-		52BAD11F2BE00EF300D2C8A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD11E2BE00EF300D2C8A4 /* ContentView.swift */; };
+		52BAD11F2BE00EF300D2C8A4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD11E2BE00EF300D2C8A4 /* MainView.swift */; };
 		52BAD1212BE00EF400D2C8A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52BAD1202BE00EF400D2C8A4 /* Assets.xcassets */; };
 		52BAD1242BE00EF400D2C8A4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52BAD1232BE00EF400D2C8A4 /* Preview Assets.xcassets */; };
 		52BAD12B2BE0192200D2C8A4 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52BAD12A2BE0192200D2C8A4 /* Launch Screen.storyboard */; };
+		52BAD12D2BE01CAB00D2C8A4 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD12C2BE01CAB00D2C8A4 /* SearchResultsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		52BAD1192BE00EF300D2C8A4 /* AppleItunesCatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleItunesCatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52BAD11C2BE00EF300D2C8A4 /* AppleItunesCatalogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleItunesCatalogApp.swift; sourceTree = "<group>"; };
-		52BAD11E2BE00EF300D2C8A4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		52BAD11E2BE00EF300D2C8A4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		52BAD1202BE00EF400D2C8A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52BAD1232BE00EF400D2C8A4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52BAD12A2BE0192200D2C8A4 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		52BAD12C2BE01CAB00D2C8A4 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +56,8 @@
 			isa = PBXGroup;
 			children = (
 				52BAD11C2BE00EF300D2C8A4 /* AppleItunesCatalogApp.swift */,
-				52BAD11E2BE00EF300D2C8A4 /* ContentView.swift */,
+				52BAD11E2BE00EF300D2C8A4 /* MainView.swift */,
+				52BAD12C2BE01CAB00D2C8A4 /* SearchResultsView.swift */,
 				52BAD1202BE00EF400D2C8A4 /* Assets.xcassets */,
 				52BAD12A2BE0192200D2C8A4 /* Launch Screen.storyboard */,
 				52BAD1222BE00EF400D2C8A4 /* Preview Content */,
@@ -141,7 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52BAD11F2BE00EF300D2C8A4 /* ContentView.swift in Sources */,
+				52BAD11F2BE00EF300D2C8A4 /* MainView.swift in Sources */,
+				52BAD12D2BE01CAB00D2C8A4 /* SearchResultsView.swift in Sources */,
 				52BAD11D2BE00EF300D2C8A4 /* AppleItunesCatalogApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
