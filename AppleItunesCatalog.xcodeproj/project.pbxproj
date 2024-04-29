@@ -14,6 +14,7 @@
 		52BAD12B2BE0192200D2C8A4 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52BAD12A2BE0192200D2C8A4 /* Launch Screen.storyboard */; };
 		52BAD12D2BE01CAB00D2C8A4 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD12C2BE01CAB00D2C8A4 /* SearchResultsView.swift */; };
 		52BAD12F2BE01DFA00D2C8A4 /* ResultsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD12E2BE01DFA00D2C8A4 /* ResultsDTO.swift */; };
+		52BAD1312BE040C400D2C8A4 /* LoggerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BAD1302BE040C400D2C8A4 /* LoggerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		52BAD12A2BE0192200D2C8A4 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		52BAD12C2BE01CAB00D2C8A4 /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		52BAD12E2BE01DFA00D2C8A4 /* ResultsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsDTO.swift; sourceTree = "<group>"; };
+		52BAD1302BE040C400D2C8A4 /* LoggerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				52BAD11E2BE00EF300D2C8A4 /* MainView.swift */,
 				52BAD12C2BE01CAB00D2C8A4 /* SearchResultsView.swift */,
 				52BAD12E2BE01DFA00D2C8A4 /* ResultsDTO.swift */,
+				52BAD1302BE040C400D2C8A4 /* LoggerExtension.swift */,
 				52BAD1202BE00EF400D2C8A4 /* Assets.xcassets */,
 				52BAD12A2BE0192200D2C8A4 /* Launch Screen.storyboard */,
 				52BAD1222BE00EF400D2C8A4 /* Preview Content */,
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52BAD11F2BE00EF300D2C8A4 /* MainView.swift in Sources */,
+				52BAD1312BE040C400D2C8A4 /* LoggerExtension.swift in Sources */,
 				52BAD12D2BE01CAB00D2C8A4 /* SearchResultsView.swift in Sources */,
 				52BAD12F2BE01DFA00D2C8A4 /* ResultsDTO.swift in Sources */,
 				52BAD11D2BE00EF300D2C8A4 /* AppleItunesCatalogApp.swift in Sources */,
