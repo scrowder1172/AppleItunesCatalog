@@ -58,6 +58,9 @@ struct MainView: View {
                                 .background(lookupTerm.isEmpty ? .clear : .black)
                         }
                         .disabled(lookupTerm.isEmpty)
+                        .sensoryFeedback(.success, trigger: isShowingSearchResults) { oldValue, newValue in
+                            newValue == true
+                        }
                     }
                 }
                 
