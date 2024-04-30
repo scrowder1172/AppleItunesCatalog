@@ -46,7 +46,7 @@ struct SearchResultsView: View {
                                     VStack {
                                         Image(systemName: "antenna.radiowaves.left.and.right.slash")
                                             .resizable()
-                                            .frame(width: 50, height: 50)
+                                            .frame(width: 30, height: 30)
                                         Text("Album art not available")
                                     }
                                     .foregroundStyle(.red)
